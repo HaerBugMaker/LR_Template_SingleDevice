@@ -29,9 +29,6 @@ object mainform: Tmainform
       item
         Width = 50
       end>
-    ExplicitLeft = 128
-    ExplicitTop = 376
-    ExplicitWidth = 0
   end
   object MainMenu1: TMainMenu
     Left = 32

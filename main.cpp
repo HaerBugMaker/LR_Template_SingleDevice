@@ -86,4 +86,32 @@ void __fastcall Tmainform::DataToUI(TUIType UIType)
 	}
 }
 //---------------------------------------------------------------------------
-
+/******************
+* INDY UDP发送函数(由于UDP发送阶段有会产生各种异常,所以这里统一为一个函数方便异常处理避免代码膨胀)
+* r_IP        :  发送目标IP
+* Port        :  发送目标端口
+* r_VC_TByte  :  发送数据包
+******************/
+void __fastcall Tmainform::INDY_SafeSendTo(const String &r_IP,u16 Port,const std::vector<TBytes> &r_VC_TByte)
+{
+	try{
+		if(UDPSvr->Bindings->Count >= 1){
+			for(const auto &abyte:r_VC_TByte)
+				{UDPSvr->Bindings->Items[0]->SendTo(r_IP,2305,abyte);}
+		}
+	}
+	catch(EIdSocketError &socketerr){
+		switch (socketerr.LastError) {
+			//cannot assign requested address
+			case 10049:{
+				ShowMessage(L"网络通信出错,可能原因是您修改了本机的网络设置。请确保网络设置正常后重启本软件");
+				break;
+			}
+			default:{
+				ShowMessage(L"网络通信出错,出错信息" + socketerr.Message);
+				break;
+			}
+		}
+	}
+}
+//---------------------------------------------------------------------------

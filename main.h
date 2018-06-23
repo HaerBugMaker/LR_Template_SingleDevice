@@ -38,6 +38,7 @@ public:		// User declarations
 	__fastcall Tmainform(TComponent* Owner);
 	void __fastcall SetBindings(void);
 	void __fastcall DataToUI(TUIType UIType);
+	void __fastcall INDY_SafeSendTo(const String &r_IP,u16 Port,const std::vector<TBytes> &r_VC_TByte)
 };
 //---------------------------------------------------------------------------
 extern PACKAGE Tmainform *mainform;
