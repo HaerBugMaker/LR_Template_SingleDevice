@@ -97,7 +97,7 @@ void __fastcall Tmainform::INDY_SafeSendTo(const String &r_IP,u16 Port,const std
 	try{
 		if(UDPSvr->Bindings->Count >= 1){
 			for(const auto &abyte:r_VC_TByte)
-				{UDPSvr->Bindings->Items[0]->SendTo(r_IP,2305,abyte);}
+				{UDPSvr->Bindings->Items[0]->SendTo(r_IP,Port,abyte);}
 		}
 	}
 	catch(EIdSocketError &socketerr){
